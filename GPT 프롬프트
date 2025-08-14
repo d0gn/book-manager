@@ -1,0 +1,76 @@
+사용자가 읽은 책을 기록하고, 독서 목표를 설정하며, 다른 사용자들과 책 리뷰를 공유할 수 있는 서비스입니다. 복잡하지 않으면서도 다양한 기능을 구현할 수 있어 학습과 포트폴리오 모두에 적합합니다.
+기술 스택
+프론트엔드: React + JavaScript + Tailwind CSS
+백엔드: Node.js + Express + TypeScript
+데이터베이스: PostgreSQL
+인증: JWT
+배포: Vercel(프론트) + Railway(백엔드)
+주요 기능
+회원가입/로그인
+책 검색 및 등록 (Google Books API 활용)
+독서 상태 관리 (읽는 중, 완료, 읽고 싶음)
+책 리뷰 작성 및 평점
+독서 통계 대시보드
+다른 사용자 리뷰 보기.
+
+데이터 베이스 구조
+
+필요한 테이블들:
+1. users (사용자 정보)
+2. books (책 정보 - Google Books API 데이터 캐싱용)
+3. user_books (사용자-책 관계, 독서 상태)
+4. reviews (사용자 리뷰)
+테이블 간 관계:
+users ↔ user_books (1:N)
+books ↔ user_books (1:N)
+users ↔ reviews (1:N)
+books ↔ reviews (1:N)
+1-2. 각 테이블 컬럼 설계
+users 테이블:
+- id (Primary Key, Auto Increment)
+- email (Unique, Not Null)
+- password (Not Null, 해시화됨)
+- username (Unique, Not Null)
+- created_at (Timestamp)
+- updated_at (Timestamp)
+books 테이블:
+- id (Primary Key, Auto Increment)
+- google_books_id (Unique, Google Books API ID)
+- title (Not Null)
+- authors (JSON 배열 또는 TEXT)
+- description (TEXT)
+- published_date (DATE)
+- page_count (INTEGER)
+- image_url (TEXT)
+- created_at (Timestamp)
+
+user_books 테이블:
+- id (Primary Key, Auto Increment)
+- user_id (Foreign Key → users.id)
+- book_id (Foreign Key → books.id)
+- status (ENUM: 'want_to_read', 'reading', 'completed')
+- started_date (DATE, nullable)
+- completed_date (DATE, nullable)
+- created_at (Timestamp)
+- updated_at (Timestamp)
+reviews 테이블:
+- id (Primary Key, Auto Increment)
+- user_id (Foreign Key → users.id)
+- book_id (Foreign Key → books.id)
+- rating (INTEGER, 1-5)
+- content (TEXT)
+- created_at (Timestamp)
+- updated_at (Timestamp)데이터 베이스 구조
+
+
+위 내용에서 아래 와 같은 기능을 만들고 싶어 
+통계 및 대시보드 API
+목표: 사용자 독서 통계 데이터 제공
+할 일:
+독서 통계 계산 로직 구현 (2시간)
+월별/연도별 독서량 API (1시간)
+장르별 통계 API (1시간)
+완료 기준: 통계 데이터 조회 API 완성
+
+
+구현해줘
